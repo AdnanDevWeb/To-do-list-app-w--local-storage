@@ -5,8 +5,9 @@ const form = document.querySelector('[data-new-list-form]')
 const inputForm = document.querySelector('[data-new-list-input]')
 const deleteListBtn = document.querySelector('.delete-list')
 
-const lists = [
-];
+
+const LOCAL_STORAGE_LIST_KEY = 'task.lists'
+const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
 
 form.addEventListener('submit' , addList)
 
@@ -26,6 +27,9 @@ function render(){
     })
 }
 
+function save(){
+    localStorage.setItem(LOCAL_STORAGE_LIST_KEY , 0000020002                                                               ,c, ,,;,JSON.stringify(lists))
+}
 function addList(e){
 
 
