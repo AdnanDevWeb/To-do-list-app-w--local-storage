@@ -5,12 +5,18 @@ const form = document.querySelector('[data-new-list-form]')
 const inputForm = document.querySelector('[data-new-list-input]')
 const deleteListBtn = document.querySelector('.delete-list')
 
-
+let LOCAL_STORAGE_LIST_ID_KEY = 'task.selectedListId'
+let selectedListId = localStorage.getItem(LOCAL_STORAGE_LIST_ID_KEY)
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
-const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
+const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || []
 
 form.addEventListener('submit' , addList)
 
+listCont.addEventListener('click' , e =>{
+    let target = e.target;
+
+    console.log(target.dataset.listId);
+})
 
 function render(){
 
@@ -24,11 +30,20 @@ function render(){
         listElement.classList.add('list-name');
         listElement.innerText= list.name;
         listCont.appendChild(listElement)
+
+        if(list.id === selectedListId){
+            list.classList.add('active-list')
+        }
     })
 }
 
+function saveAndRender(){
+    save();
+    render()
+}
+
 function save(){
-    localStorage.setItem(LOCAL_STORAGE_LIST_KEY , 0000020002                                                               ,c, ,,;,JSON.stringify(lists))
+    localStorage.setItem(  LOCAL_STORAGE_LIST_KEY , JSON.stringify(lists))
 }
 function addList(e){
 
@@ -42,7 +57,7 @@ function addList(e){
     newList['tasks'] = []
     lists.push(newList);
     inputForm.value = ''
-    render();
+    saveAndRender()
 }
 function clearElement(element){
     while(element.firstChild){
