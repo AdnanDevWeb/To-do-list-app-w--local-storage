@@ -13,9 +13,8 @@ const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || []
 form.addEventListener('submit' , addList)
 
 listCont.addEventListener('click' , e =>{
-    let target = e.target;
-
-    console.log(target.dataset.listId);
+    let target = e.target.dataset.listId;
+    localStorage.setItem(LOCAL_STORAGE_LIST_ID_KEY , target)
 })
 
 function render(){
