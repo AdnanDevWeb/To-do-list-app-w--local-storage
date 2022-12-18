@@ -4,7 +4,8 @@ const listNameInput = document.querySelector('.new.list')
 const form = document.querySelector('[data-new-list-form]')
 const inputForm = document.querySelector('[data-new-list-input]')
 const deleteListBtn = document.querySelector('.delete-list')
-
+const listTitle = document.querySelector('.list-title')
+const newTaskForm = document.querySelector('.new.task')
 const LOCAL_STORAGE_LIST_ID_KEY = "task.selectedListId"
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
@@ -15,10 +16,17 @@ form.addEventListener('submit' , addList)
 listCont.addEventListener('click', e =>{
     if(e.target.tagName === "LI"){
         console.log(e.target.dataset.listId);
-        localStorage.setItem(LOCAL_STORAGE_LIST_ID_KEY,e.target.dataset.listId)
+        selectedListId = e.target.dataset.listId
+        saveAndRender()
     } 
 })
 
+
+
+function setTitle (){
+    const selectedList = document.querySelector(`[data-list-id="${selectedListId}"]`)
+    listTitle.textContent = selectedList.textContent
+}
 function render(){
 
     clearElement(listCont)
@@ -26,16 +34,20 @@ function render(){
 
 
     lists.forEach(list => {
+
         const listElement = document.createElement('li')
         listElement.dataset.listId = list.id
         listElement.classList.add('list-name');
         listElement.innerText= list.name;
         if(list.id === selectedListId) listElement.classList.add('active-list')
+
         listCont.appendChild(listElement)
     })
 }
 function save(){
     localStorage.setItem(LOCAL_STORAGE_LIST_KEY , JSON.stringify(lists))
+    localStorage.setItem(LOCAL_STORAGE_LIST_ID_KEY,selectedListId)
+
 }
 function addList(e){
 
@@ -55,6 +67,7 @@ function addList(e){
 function saveAndRender(){
     save();
     render();
+    setTitle()
 }
 function clearElement(element){
     while(element.firstChild){
@@ -62,4 +75,4 @@ function clearElement(element){
     }
 }
 
-render()
+saveAndRender()
