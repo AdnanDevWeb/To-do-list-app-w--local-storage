@@ -5,12 +5,19 @@ const form = document.querySelector('[data-new-list-form]')
 const inputForm = document.querySelector('[data-new-list-input]')
 const deleteListBtn = document.querySelector('.delete-list')
 
-
+const LOCAL_STORAGE_LIST_ID_KEY = "task.selectedListId"
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
+let selectedListId = localStorage.getItem(LOCAL_STORAGE_LIST_ID_KEY)
+
 
 form.addEventListener('submit' , addList)
-
+listCont.addEventListener('click', e =>{
+    if(e.target.tagName === "LI"){
+        console.log(e.target.dataset.listId);
+        localStorage.setItem(LOCAL_STORAGE_LIST_ID_KEY,e.target.dataset.listId)
+    } 
+})
 
 function render(){
 
@@ -23,12 +30,12 @@ function render(){
         listElement.dataset.listId = list.id
         listElement.classList.add('list-name');
         listElement.innerText= list.name;
+        if(list.id === selectedListId) listElement.classList.add('active-list')
         listCont.appendChild(listElement)
     })
 }
-console.log("suuu");
 function save(){
-    localStorage.setItem(LOCAL_STORAGE_LIST_KEY , 0000020002                                                               ,c, ,,;,JSON.stringify(lists))
+    localStorage.setItem(LOCAL_STORAGE_LIST_KEY , JSON.stringify(lists))
 }
 function addList(e){
 
@@ -42,6 +49,11 @@ function addList(e){
     newList['tasks'] = []
     lists.push(newList);
     inputForm.value = ''
+    saveAndRender()
+}
+
+function saveAndRender(){
+    save();
     render();
 }
 function clearElement(element){
