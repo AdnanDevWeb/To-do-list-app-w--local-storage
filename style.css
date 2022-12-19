@@ -172,6 +172,7 @@
   .todo-body {
     padding: var(--spacer);
     position: relative;
+    display: block;
   }
   
   .new-task-creator .create {
@@ -266,8 +267,9 @@
   .delete-stuff {
     display: flex;
     justify-content: space-evenly;
-    position: absolute;
     width: 100%;
+    position: absolute;
+    
     left: 0;
     bottom: -35px;
     color: var(--clr-light);
