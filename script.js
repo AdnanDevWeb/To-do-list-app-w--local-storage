@@ -8,7 +8,7 @@ const listTitle = document.querySelector('.list-title')
 const newTaskForm = document.querySelector('[data-new-task-form]')
 const newTaskInput = document.querySelector('[data-new-task-input]')
 
-const todoCont = document.querySelector('.todo-body')
+const todoCont = document.querySelector('.tasks')
 
 // list
 
@@ -51,6 +51,9 @@ function addTask(e){
     console.log(selectedList);
     selectedList.tasks.push(newTask)
 
+
+
+
     newTaskInput.value = ""
     saveAndRender()
 }
@@ -82,20 +85,15 @@ function render(){
     clearElement(listCont)
 
 
-    lists.forEach(task => {
+    lists.forEach(list => {
         // ac = actual just to sperate the var to "task"
-        const acTask = document.createElement('div')
-        acTask.classList.add('task');
-
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        acTask.appendChild(checkbox)
-
-        const label = document.createElement('label');
-
-        const span = document.createElement('span')
-        span.classList.add('custom-checkbox')
-        label.textContent = task.name;
+        list.tasks.forEach(task =>{
+            console.log(task.name)
+            const test = document.createElement('p')
+            test.textContent = task.name
+            todoCont.appendChild(test)            
+        })
+        
 
     })
 
